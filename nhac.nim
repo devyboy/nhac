@@ -1,8 +1,6 @@
-import os, strutils, httpclient, terminal, sequtils, md5, std/sha1
+import os, strutils, httpclient, sequtils, md5, std/sha1
 
 # Declaring stuff
-var filename : string
-var hashType: string
 var client = newHttpClient()
 const hashTypes = @["md5", "sha1", "sha256", "sha384", "sha512"]
 
@@ -11,7 +9,7 @@ proc findHash(text, hashType: string) =
     if not response.contains(hashType):
         quit("Error: Hash type not supported\n")
     else:
-        # I can't use regex so enjoy this terrible string manipulation to find the end quote of the result...
+        # I can't use regex so enjoy this terrible string manipulation to find the end of the result...
         let begindexButNotReally = find(response, toLowerAscii(hashType))
         let realBegindex = begindexButNotReally + find(response[begindexButNotReally .. response.len() - 1], "<span>") + 6
         let endex = realBegindex + find(response[realBegindex .. response.len() - 1], "</span>")
@@ -20,6 +18,8 @@ proc findHash(text, hashType: string) =
         echo "Hash Result: " & result & "\n"
 
 proc decode(hash: string) =
+    var hashType: string
+
     case hash.len()
     of 32: hashType = "md5"
     of 40: hashType = "sha1"
@@ -88,14 +88,11 @@ ___________________________________________
             quit("Error: Enter a hash to crack\n")
     elif paramStr(1) == "-df":
         # Try to read the file
-        try:
-            filename = paramStr(2)
-        # Error if they used the file flag without actually giving one
-        except IndexError:
+        if paramCount() < 2:
             quit("Error: Enter a file to read from\n")  
         # Set the hash equal to the file contents and strip the whitespace
         try:
-            decode(readFile(filename).strip())
+            decode(readFile(paramStr(2)).strip())
         except IOError:
             quit("Error: Could not open file\n")
     else:
