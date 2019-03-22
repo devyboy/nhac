@@ -3,7 +3,7 @@
 ##  Pronunciation
 The 'h' is silent so **nhac** is pronounced */nak/*. Like when you have a *knack* for programming. (I don't)
 ## Installation
-**Nhac** was written in the **Nim** programming language which is a low level language **disguised** as a high level one. It compiles to **C** so it produces **extremely fast binaries with zero dependencies.** 
+**Nhac** was written in the **Nim** programming language which is a low level language disguised as a high level one. It compiles to **C** so it produces **extremely fast binaries with zero dependencies.** 
 
 To **compile a Nim file**, you need to **install Nim** on your machine. There are **lots of ways** to do this so just go to the website and go nuts: [https://nim-lang.org/install.html](https://nim-lang.org/install.html)
 
@@ -11,10 +11,10 @@ After you've added **Nim** to your **PATH**, all you need to do is `nim compile 
 ## Usage
 There is help text built in but I guess I'll repeat myself here.
 
-**Hash raw text:** `./nhac -e <text> <algorithm>`
+**Hash raw text:** `./nhac -e <text> <algorithm>`<br/>
 **Hash text from a file:** `./nhac -ef <path to file> <algorithm>`
 
-**Crack raw hash:** `./nhac -d <hash>`
+**Crack raw hash:** `./nhac -d <hash>`<br/>
 **Crack hash from file:** `./nhac -df <path to file>`
 
 ('e' stands for encode, 'd' stands for decode)
