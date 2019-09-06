@@ -68,7 +68,7 @@ ___________________________________________
 
     # Incorrect usage/help text
     if paramCount() < 1:
-        quit("To decode raw hash: ./nhac -d <hash>\nTo encode raw text: ./nhac -e <text>\nTo decode hash in file: ./nhac -df <path to file>\nTo encode text in file: ./nhac -ef <path to file>\n\nSupported Algorithms: md5, sha1, sha256, sha384, sha512\n")
+        quit("To decode raw hash: ./nhac -d <hash>\nTo encode raw text: ./nhac -e <text> <type>\nTo decode hash in file: ./nhac -df <path to file>\nTo encode text in file: ./nhac -ef <path to file> <type>\n\nSupported Algorithms: md5, sha1, sha256, sha384, sha512\n")
     if paramStr(1) == "-e":
         if paramCount() < 3:
             quit("Error: Enter some text and a hash function\n")
