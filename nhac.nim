@@ -11,8 +11,10 @@ proc findHash(text, hashType: string) =
     else:
         # I can't use regex so enjoy this terrible string manipulation to find the end of the result...
         let begindexButNotReally = find(response, toLowerAscii(hashType))
-        let realBegindex = begindexButNotReally + find(response[begindexButNotReally .. response.len() - 1], "<span>") + 6
-        let endex = realBegindex + find(response[realBegindex .. response.len() - 1], "</span>")
+        let realBegindex = begindexButNotReally + find(response[
+                begindexButNotReally .. response.len() - 1], "<span>") + 6
+        let endex = realBegindex + find(response[realBegindex .. response.len() -
+                1], "</span>")
         let result = response[realBegindex .. endex - 1]
 
         echo "Hash Result: " & result & "\n"
@@ -28,7 +30,7 @@ proc decode(hash: string) =
     of 128: hashType = "sha512"
     else: quit("Error: Hash type not supported\n")
 
-    echo "Hash Type: " & hashType 
+    echo "Hash Type: " & hashType
 
     let response = client.getContent("http://hashtoolkit.com/reverse-hash/?hash=" & hash)
     if response.contains("No hashes found for"):
@@ -38,16 +40,17 @@ proc decode(hash: string) =
         # More terrible string manipulation, but hey it works
         let endex = begindex + find(response[begindex .. response.len() - 1], "\"")
         let result = response[begindex .. endex - 1]
-
-        echo "Result: " & result & "\n"
+        let resultf = replace(result, "%20", " ")
+        echo "Result: " & resultf & "\n"
 
 proc encode(text, hashType: string) =
     let hashTypeL = toLowerAscii(hashType)
+    let ftext = replace(text, " ", "+")
     if any(hashTypes, proc (x: string): bool = return x == hashTypeL):
         case hashTypeL
         of "md5": echo "Result: " & $toMD5(text) & "\n"
         of "sha1": echo "Result: " & $secureHash(text) & "\n"
-        else: findHash(text, hashTypeL)
+        else: findHash(ftext, hashTypeL)
     else:
         quit("Error: Hash function not recognized\n")
 
@@ -89,7 +92,7 @@ ___________________________________________
     elif paramStr(1) == "-df":
         # Try to read the file
         if paramCount() < 2:
-            quit("Error: Enter a file to read from\n")  
+            quit("Error: Enter a file to read from\n")
         # Set the hash equal to the file contents and strip the whitespace
         try:
             decode(readFile(paramStr(2)).strip())
