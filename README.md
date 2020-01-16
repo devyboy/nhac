@@ -1,5 +1,11 @@
-﻿# Nim Hasher and Cracker
+# Nim Hasher and Cracker
 Nhac is a simple command line application that allows you to hash text and also try to crack hashes that you've "acquired". The cracking takes seconds since no hash tables or dictionaries are built in; all the work is outsourced.
+
+## Gallery
+![](https://raw.githubusercontent.com/devyboy/nhac/master/screens/help.png)
+![](https://raw.githubusercontent.com/devyboy/nhac/master/screens/encode.png)
+![](https://raw.githubusercontent.com/devyboy/nhac/master/screens/decode.png)
+
 ##  Pronunciation
 The 'h' is silent so nhac is pronounced */nak/*. Like when you have a *knack* for programming. (I don't)
 ## Installation
